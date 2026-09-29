@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-void text-ink font-body antialiased;
+}
+
+@layer components {
+  /* Frosted glass panel used for cards, dropdowns, chat, dashboards */
+  .glass-panel {
+    @apply relative rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl overflow-hidden;
+    background-image: linear-gradient(145deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.01));
+  }
+
+  /* Primary gradient CTA button */
+  .btn-glow {
+    @apply inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold text-white
+           transition-all duration-200;
+    background-image: linear-gradient(120deg, #8a3acb, #e6007a);
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.14) inset, 0 8px 30px -8px rgba(255, 0, 127, 0.55);
+  }
+  .btn-glow:hover {
+    filter: brightness(1.12);
+    transform: translateY(-1px);
+  }
+  .btn-glow:disabled {
+    @apply opacity-50 cursor-not-allowed;
+    transform: none;
+    filter: none;
+  }
+
+  /* Quiet secondary button */
+  .btn-ghost {
+    @apply inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2
+           text-sm font-semibold text-ink transition-colors duration-200 hover:border-magenta/60;
+  }
+
+  /* Pill chip, three severity variants */
+  .chip {
+    @apply inline-flex items-center rounded-full border px-2.5 py-1 text-xs font-medium font-tag;
+  }
+  .chip-violet {
+    @apply chip border-violet/40 bg-violet/10 text-violet-soft;
+  }
+  .chip-ok {
+    @apply chip border-emerald/40 bg-emerald/10 text-emerald;
+  }
+  .chip-warn {
+    @apply chip border-amber/40 bg-amber/10 text-amber;
+  }
+  .chip-bad {
+    @apply chip border-magenta/40 bg-magenta/10 text-[#FF6BB0];
+  }
+}
+
+/* Circular match-score gauge. Usage: render an <svg> with a .gauge-track and
+   .gauge-value circle, and set --gauge-pct (0-100) inline on the wrapper. */
+.gauge-track {
+  stroke: rgba(255, 255, 255, 0.08);
+  fill: none;
+}
+.gauge-value {
+  fill: none;
+  stroke-linecap: round;
+  transition: stroke-dasharray 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* Chat widget open transition, referenced by CareerChatWidget.jsx */
+@keyframes chatPop {
+  from {
+    opacity: 0;
+    transform: scale(0.94) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
