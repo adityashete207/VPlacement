@@ -14,6 +14,7 @@ dist-ssr
 .env
 nodejs/
 data/
+uploads/
 
 # Uploaded resumes — keep the folder, never the actual files people upload
 jobportal-backend/uploads/resumes/*
