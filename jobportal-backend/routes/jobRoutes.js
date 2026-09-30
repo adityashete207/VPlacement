@@ -6,6 +6,8 @@ const path = require('path');
 const crypto = require('crypto');
 const multer = require('multer');
 const pool = require('../db');
+const jwt = require('jsonwebtoken');
+const fs = require('fs');
 const { protect, authorize } = require('../middleware/authMiddleware');
 const { notifyUser, notifyRole } = require('../services/notificationService'); // NEW
 const { deleteJobWithDependents } = require('../services/jobDeletionService'); // NEW
@@ -423,4 +425,50 @@ router.patch('/applications/:applicationId/status', protect, authorize('employer
   }
 });
 
+const RESUME_DIR = path.join(__dirname, '..', 'uploads', 'resumes');
+
+// Logged-in user asks for a temporary (5 min) link to a resume
+router.get('/applications/:applicationId/resume-access', protect, async (req, res) => {
+  try {
+    const [rows] = await pool.execute(
+      `SELECT a.resume_link, a.applicant_id, j.employer_id
+       FROM applications a
+       JOIN jobs j ON a.job_id = j.id
+       WHERE a.id = ?`,
+      [req.params.applicationId]
+    );
+    const row = rows[0];
+    if (!row) return res.status(404).json({ message: 'Application not found.' });
+
+    const allowed =
+      req.user.role === 'admin' ||
+      req.user.id === row.employer_id ||
+      req.user.id === row.applicant_id;
+    if (!allowed) return res.status(403).json({ message: 'Not authorized to view this resume.' });
+
+    // Works with the full URLs already stored in the database
+    const file = path.basename(String(row.resume_link).split('?')[0]);
+    const token = jwt.sign({ file, purpose: 'resume' }, process.env.JWT_SECRET, { expiresIn: '5m' });
+
+    res.json({ url: `${req.protocol}://${req.get('host')}/api/jobs/resume-file/${token}` });
+  } catch (err) {
+    console.error('Error in resume-access:', err);
+    res.status(500).json({ message: 'Could not create resume link.' });
+  }
+});
+
+// The temporary link serves the PDF (no login header needed, the token is the proof)
+router.get('/resume-file/:token', (req, res) => {
+  try {
+    const decoded = jwt.verify(req.params.token, process.env.JWT_SECRET);
+    if (decoded.purpose !== 'resume') throw new Error('Wrong token type');
+
+    const filePath = path.join(RESUME_DIR, path.basename(decoded.file));
+    if (!fs.existsSync(filePath)) return res.status(404).send('File not found.');
+
+    res.type('application/pdf').sendFile(filePath);
+  } catch (err) {
+    res.status(401).send('Link expired or invalid.');
+  }
+});
 module.exports = router;
