@@ -5,9 +5,9 @@ A full-stack placement portal for college students, employers and campus admins,
 **Live app:** [v-placement.vercel.app](https://v-placement.vercel.app)
 *(Hosted on free tiers, so it may occasionally be offline or slow to wake up.)*
 
-   ![Dashboard](docs/dashboard.png)
-   ![Employer view](docs/employer.png)
-   ![AI screening](docs/ai-screening.png)
+   ![Hpmepage](docs/Homepage.png)
+   ![Authentication](docs/Authentication.png)
+   ![FindJobs](docs/FindJobs.png)
    
 ## The problem
 
