@@ -41,9 +41,6 @@ app.use(express.json());
 const resumeUploadDir = path.join(__dirname, 'uploads', 'resumes');
 fs.mkdirSync(resumeUploadDir, { recursive: true });
 
-// Serve uploaded resumes as static files, e.g. GET /uploads/resumes/<filename>
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-
 app.set('socketio', io); // Attach io to app.locals for access in routes
 
 pool.getConnection()
