@@ -446,8 +446,13 @@ router.get('/applications/:applicationId/resume-access', protect, async (req, re
       req.user.id === row.applicant_id;
     if (!allowed) return res.status(403).json({ message: 'Not authorized to view this resume.' });
 
-    // Works with the full URLs already stored in the database
-    const file = path.basename(String(row.resume_link).split('?')[0]);
+    // NEW: external links (Google Drive, Dropbox...) are returned as they are
+    const link = String(row.resume_link);
+    if (!link.includes('/uploads/resumes/')) {
+    return res.json({ url: link });
+}
+
+    const file = path.basename(link.split('?')[0]);
     const token = jwt.sign({ file, purpose: 'resume' }, process.env.JWT_SECRET, { expiresIn: '5m' });
 
     res.json({ url: `${req.protocol}://${req.get('host')}/api/jobs/resume-file/${token}` });
