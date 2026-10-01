@@ -116,7 +116,9 @@ VPlacement/
 │   ├── middleware/               # JWT auth and role authorization
 │   ├── uploads/                  # Resume PDFs (git-ignored, volume on Railway)
 │   ├── db.js                     # MySQL connection pool
+│   ├── schema.sql                # Database tables
 │   └── server.js                 # Express + Socket.IO entry point
+├── docs/                         # README screenshots
 └── README.md
 ```
 
