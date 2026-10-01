@@ -7,7 +7,7 @@ import Footer from '../../components/Footer.jsx';
 import { getUserById } from '../../api/adminService.js';
 import { getApplicationsByApplicantId } from '../../api/jobService.js';
 import { ArrowLeft, User as UserIcon, Mail, MapPin, Briefcase, AlertCircle, Loader2, FileText, ExternalLink } from 'lucide-react';
-
+import ResumeLink from '../../components/ResumeLink.jsx';
 const STATUS_CHIP = {
   pending: 'chip-warn',
   accepted: 'chip-ok',
@@ -144,16 +144,7 @@ const AdminViewJobSeekerPage = () => {
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-muted">{formatDate(application.createdAt)}</td>
                             <td className="px-6 py-4 whitespace-nowrap">
-                              <a
-                                href={application.resumeLink}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center text-sm text-violet-soft hover:text-ink transition-colors"
-                              >
-                                <FileText className="h-4 w-4 mr-1" />
-                                View
-                                <ExternalLink className="h-3 w-3 ml-1" />
-                              </a>
+                              <ResumeLink application={application} label="View" />
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
                               <span className={STATUS_CHIP[application.status] || 'chip-warn'}>

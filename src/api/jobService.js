@@ -124,3 +124,11 @@ export const deleteJob = async (jobId) => {
   });
   return response.data;
 };
+
+   export const getResumeAccessUrl = async (applicationId) => {
+     const response = await axios.get(
+       `${API_URL}/applications/${applicationId}/resume-access`,
+       { headers: getAuthHeaders() }
+     );
+     return response.data.url;
+   };

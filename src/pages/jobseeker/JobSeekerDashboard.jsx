@@ -5,6 +5,7 @@ import { Link, Navigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext.jsx';
 import Navbar from '../../components/Navbar.jsx';
 import Footer from '../../components/Footer.jsx';
+import ResumeLink from '../../components/ResumeLink.jsx';
 import { getApplicationsByApplicantId } from '../../api/jobService.js';
 import {
   Briefcase,
@@ -173,16 +174,7 @@ const JobSeekerDashboard = () => {
                           </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <a
-                            href={application.resumeLink}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center text-sm text-violet-soft hover:text-ink transition-colors"
-                          >
-                            <FileText className="h-4 w-4 mr-1" />
-                            View
-                            <ExternalLink className="h-3 w-3 ml-1" />
-                          </a>
+                          <ResumeLink application={application} label="View" />
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <span className={STATUS_CHIP[application.status] || 'chip-warn'}>
