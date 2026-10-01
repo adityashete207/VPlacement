@@ -28,8 +28,10 @@ const formatJobForFrontend = (job) => {
 };
 
 // --- Resume upload setup ---
-// Files land in jobportal-backend/uploads/resumes/ and are served statically
-// from /uploads/resumes/<filename> (wired up in server.js). Filenames are
+// Files land in jobportal-backend/uploads/resumes/ (on Railway this folder is
+// a persistent volume mounted at /app/uploads). They are NOT served publicly:
+// the GET /applications/:applicationId/resume-access route checks who is asking
+// and returns a 5-minute signed link to GET /resume-file/:token. Filenames are
 // randomized so two applicants uploading "resume.pdf" never collide or
 // overwrite each other.
 const resumeStorage = multer.diskStorage({
