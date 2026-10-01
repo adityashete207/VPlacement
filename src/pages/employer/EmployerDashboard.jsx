@@ -19,8 +19,6 @@ import {
   Trash2,
   Eye,
   Clock,
-  FileText,
-  ExternalLink,
   User as UserIcon,
   Check,
   X as XIcon,

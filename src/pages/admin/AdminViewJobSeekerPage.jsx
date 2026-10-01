@@ -6,7 +6,7 @@ import Navbar from '../../components/Navbar.jsx';
 import Footer from '../../components/Footer.jsx';
 import { getUserById } from '../../api/adminService.js';
 import { getApplicationsByApplicantId } from '../../api/jobService.js';
-import { ArrowLeft, User as UserIcon, Mail, MapPin, Briefcase, AlertCircle, Loader2, FileText, ExternalLink } from 'lucide-react';
+import { ArrowLeft, User as UserIcon, Mail, MapPin, Briefcase, AlertCircle, Loader2 } from 'lucide-react';
 import ResumeLink from '../../components/ResumeLink.jsx';
 const STATUS_CHIP = {
   pending: 'chip-warn',

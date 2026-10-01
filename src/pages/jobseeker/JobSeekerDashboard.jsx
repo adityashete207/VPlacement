@@ -9,9 +9,7 @@ import ResumeLink from '../../components/ResumeLink.jsx';
 import { getApplicationsByApplicantId } from '../../api/jobService.js';
 import {
   Briefcase,
-  FileText,
   AlertCircle,
-  ExternalLink,
   Calendar,
   MapPin,
 } from 'lucide-react';
