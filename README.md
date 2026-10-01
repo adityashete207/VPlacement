@@ -5,12 +5,10 @@ A full-stack placement portal for college students, employers and campus admins,
 **Live app:** [v-placement.vercel.app](https://v-placement.vercel.app)
 *(Hosted on free tiers, so it may occasionally be offline or slow to wake up.)*
 
-![alt text](image.png)
-
-![alt text](image-1.png)
-
-![alt text](image-2.png)
-
+   ![Dashboard](docs/dashboard.png)
+   ![Employer view](docs/employer.png)
+   ![AI screening](docs/ai-screening.png)
+   
 ## The problem
 
 Campus placement usually runs on scattered spreadsheets, email threads and shared drives. Students don't know which openings fit them, employers drown in unranked applications, and admins have no single view of what's happening. Resumes end up as public links that anyone can forward.
